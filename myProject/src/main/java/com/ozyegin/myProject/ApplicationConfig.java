@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 
 import com.ozyegin.myProject.beans.IdNumber;
@@ -19,9 +21,16 @@ public class ApplicationConfig {
 	}
 	
 	@Bean
+	@Primary
 	public SimpleDateFormat getDateFormat() {
 		SimpleDateFormat df=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		return df;
 	}
 
+	@Bean
+	@Profile("dev")
+	public SimpleDateFormat getDateFormat2() {
+		SimpleDateFormat df=new SimpleDateFormat("dd-MM-yyyy");
+		return df;
+	}
 }

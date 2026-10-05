@@ -11,8 +11,11 @@ import com.ozyegin.myProject.beans.IdNumber;
 public class TestBeans {
 
 	public static void main(String[] args) {
-		ApplicationContext context = new AnnotationConfigApplicationContext(MyProjectApplication.class);
-		
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		context.getEnvironment().setActiveProfiles("test");
+		context.register(MyProjectApplication.class);
+		context.refresh();
+
 		GreetingService service1= context.getBean("greetingService",GreetingService.class);
 		service1.sayHello();
 		
