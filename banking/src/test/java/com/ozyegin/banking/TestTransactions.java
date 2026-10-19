@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.ozyegin.banking.model.BankAccount;
 import com.ozyegin.banking.model.ChequeTransaction;
 import com.ozyegin.banking.model.DepositTransaction;
-import com.ozyegin.banking.model.Transaction;
 import com.ozyegin.banking.model.WithdrawalTransaction;
 import com.ozyegin.banking.service.AccountService;
 
@@ -32,6 +31,21 @@ class TestTransactions {
 		account.post(new ChequeTransaction(100));
 		assertEquals(account.getBalance(),699.5);
 		service.addAccount();
+	}
+	
+	@Test
+	void testTransferMoney() {
+		int senderId=1;
+		int receiverId=2;
+		int transferAmount=50;
 		
+		double senderFirstBalance=service.getBalance(senderId);
+		double receiverFirstBalance=service.getBalance(receiverId);
+		service.transferMoney(senderId, receiverId, transferAmount);
+		double senderLastBalance=service.getBalance(senderId);
+		double receiverLastBalance=service.getBalance(receiverId);
+		
+		assertEquals(senderFirstBalance-transferAmount, senderLastBalance);
+		assertEquals(receiverFirstBalance+transferAmount, receiverLastBalance);
 	}
 }
