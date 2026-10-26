@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.ozyegin.banking.repository.BankAccountRepository;
+import com.ozyegin.banking.repository.BankAccountDAO;
 @SpringBootTest
 class TestJdbc {
 	@Autowired
-	BankAccountRepository repo;
+	BankAccountDAO repo;
 
 	@Test
 	void testWithdraw() {
