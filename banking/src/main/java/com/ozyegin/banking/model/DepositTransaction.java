@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "DEPOSIT_TRX_LIST")
+@Table(name = "D_TRX_LIST")
 public class DepositTransaction extends Transaction {
 	private String channel;
 

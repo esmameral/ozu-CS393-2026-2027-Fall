@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "WITHD_TRX_LIST")
+@Table(name = "W_TRX_LIST")
 public class WithdrawalTransaction extends Transaction {
 	private double fee;
 

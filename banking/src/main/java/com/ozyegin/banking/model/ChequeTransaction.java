@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="CHEQUE_TRX_LIST")
+@Table(name="C_TRX_LIST")
 public class ChequeTransaction extends WithdrawalTransaction {
 	private String chequeNumber;
 	

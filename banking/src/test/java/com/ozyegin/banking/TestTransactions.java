@@ -4,18 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ozyegin.banking.model.BankAccount;
 import com.ozyegin.banking.model.ChequeTransaction;
 import com.ozyegin.banking.model.DepositTransaction;
-import com.ozyegin.banking.model.Transaction;
-import com.ozyegin.banking.model.TransactionRecord;
 import com.ozyegin.banking.model.WithdrawalTransaction;
 import com.ozyegin.banking.service.AccountService;
 
@@ -27,45 +22,18 @@ class TestTransactions {
 	@Test
 	void testTransactions() {
 		BankAccount account;
-		account = new BankAccount("Ceyda1");
+		account = new BankAccount("Taner");
 		assertNotNull(account);
-		DepositTransaction d = new DepositTransaction(888,"ATM");
+		DepositTransaction d = new DepositTransaction(1000,"ATM");
 
 		account.post(d);
 		
 		account.post(new WithdrawalTransaction(200,1));
-//		assertTrue(account.getBalance() == 800);
-		account.post(new ChequeTransaction(333,"A123"));
-//		assertEquals(account.getBalance(), 699.5);
+		assertTrue(account.getBalance() == 800);
+		account.post(new ChequeTransaction(200,"A123"));
+		assertEquals(account.getBalance(), 599);
 		service.addAccount(account);
-	}
-
-	
-	@Test
-	void testDepositTrx() {
-		List<Transaction> list=service.listDeposits();
-		for (Transaction depositTransaction : list) {
-			System.out.println(depositTransaction);
-		}
-	}
-	@Test
-	@Transactional
-	void testGetData() {
-
-		List<BankAccount> list = service.getAll();
-		for (BankAccount bankAccount : list) {
-			System.out.println(bankAccount);
-			for (Transaction trx : bankAccount.getTransactions()) {
-				System.out.println(trx);
-			}
-			System.out.println();
-		}
-		
-		List<TransactionRecord> l=service.list("Kerem");
-		for (TransactionRecord transactionRecord : l) {
-			System.out.println(transactionRecord.amount()+" "+transactionRecord.accountOwner());
-		}
-
+		assertTrue(account.getAccountId() != 0);
 	}
 
 	@Test
