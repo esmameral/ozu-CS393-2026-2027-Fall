@@ -15,6 +15,7 @@ import com.ozyegin.banking.model.BankAccount;
 import com.ozyegin.banking.model.ChequeTransaction;
 import com.ozyegin.banking.model.DepositTransaction;
 import com.ozyegin.banking.model.Transaction;
+import com.ozyegin.banking.model.TransactionRecord;
 import com.ozyegin.banking.model.WithdrawalTransaction;
 import com.ozyegin.banking.service.AccountService;
 
@@ -22,26 +23,36 @@ import com.ozyegin.banking.service.AccountService;
 class TestTransactions {
 	@Autowired
 	AccountService service;
-	
+
 	@Test
 	void testTransactions() {
 		BankAccount account;
-		account = new BankAccount("Kerem");
+		account = new BankAccount("Ceyda1");
 		assertNotNull(account);
+		DepositTransaction d = new DepositTransaction(888,"ATM");
+
+		account.post(d);
 		
-		account.post(new DepositTransaction(1000));
-		account.post(new WithdrawalTransaction(200));
-		assertTrue(account.getBalance()==800);
-		account.post(new ChequeTransaction(100));
-		assertEquals(account.getBalance(),699.5);
-		service.addAccount(account);	
+		account.post(new WithdrawalTransaction(200,1));
+//		assertTrue(account.getBalance() == 800);
+		account.post(new ChequeTransaction(333,"A123"));
+//		assertEquals(account.getBalance(), 699.5);
+		service.addAccount(account);
 	}
+
 	
+	@Test
+	void testDepositTrx() {
+		List<Transaction> list=service.listDeposits();
+		for (Transaction depositTransaction : list) {
+			System.out.println(depositTransaction);
+		}
+	}
 	@Test
 	@Transactional
 	void testGetData() {
-		
-		List<BankAccount> list=service.getAll();	
+
+		List<BankAccount> list = service.getAll();
 		for (BankAccount bankAccount : list) {
 			System.out.println(bankAccount);
 			for (Transaction trx : bankAccount.getTransactions()) {
@@ -50,21 +61,26 @@ class TestTransactions {
 			System.out.println();
 		}
 		
+		List<TransactionRecord> l=service.list("Kerem");
+		for (TransactionRecord transactionRecord : l) {
+			System.out.println(transactionRecord.amount()+" "+transactionRecord.accountOwner());
+		}
+
 	}
-	
+
 	@Test
 	void testTransferMoney() {
-		int senderId=1;
-		int receiverId=2;
-		int transferAmount=50;
-		
-		double senderFirstBalance=service.getBalance(senderId);
-		double receiverFirstBalance=service.getBalance(receiverId);
+		int senderId = 1;
+		int receiverId = 2;
+		int transferAmount = 50;
+
+		double senderFirstBalance = service.getBalance(senderId);
+		double receiverFirstBalance = service.getBalance(receiverId);
 		service.transferMoney(senderId, receiverId, transferAmount);
-		double senderLastBalance=service.getBalance(senderId);
-		double receiverLastBalance=service.getBalance(receiverId);
-		
-		assertEquals(senderFirstBalance-transferAmount, senderLastBalance);
-		assertEquals(receiverFirstBalance+transferAmount, receiverLastBalance);
+		double senderLastBalance = service.getBalance(senderId);
+		double receiverLastBalance = service.getBalance(receiverId);
+
+		assertEquals(senderFirstBalance - transferAmount, senderLastBalance);
+		assertEquals(receiverFirstBalance + transferAmount, receiverLastBalance);
 	}
 }

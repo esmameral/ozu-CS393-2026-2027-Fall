@@ -14,8 +14,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-//@Table(name="TRX_LIST")
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@Table(name="TRX_LIST")
+@Inheritance(strategy=InheritanceType.JOINED)
 public abstract class Transaction {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
