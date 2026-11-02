@@ -4,20 +4,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.ozyegin.banking.dto.TransactionSum;
 import com.ozyegin.banking.model.BankAccount;
 import com.ozyegin.banking.model.ChequeTransaction;
 import com.ozyegin.banking.model.DepositTransaction;
 import com.ozyegin.banking.model.WithdrawalTransaction;
 import com.ozyegin.banking.service.AccountService;
+import com.ozyegin.banking.service.TransactionService;
 
 @SpringBootTest
 class TestTransactions {
 	@Autowired
 	AccountService service;
+	
+	@Autowired
+	TransactionService trxService;
+
 
 	@Test
 	void testTransactions() {
@@ -50,5 +58,13 @@ class TestTransactions {
 
 		assertEquals(senderFirstBalance - transferAmount, senderLastBalance);
 		assertEquals(receiverFirstBalance + transferAmount, receiverLastBalance);
+	}
+	
+	@Test
+	public void testProjections() {
+		List<TransactionSum> list =trxService.getTransactionOwnerAndBalance("Taner");
+		for (TransactionSum transactionSum : list) {
+			System.out.println(transactionSum.amount()+" "+transactionSum.accountOwner());
+		}
 	}
 }

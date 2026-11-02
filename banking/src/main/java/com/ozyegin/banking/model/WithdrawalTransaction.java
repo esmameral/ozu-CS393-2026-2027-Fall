@@ -1,10 +1,12 @@
 package com.ozyegin.banking.model;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "W_TRX_LIST")
+//@DiscriminatorValue(value="W")
 public class WithdrawalTransaction extends Transaction {
 	private double fee;
 

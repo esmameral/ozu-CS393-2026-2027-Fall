@@ -1,10 +1,12 @@
 package com.ozyegin.banking.model;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "D_TRX_LIST")
+//@DiscriminatorValue(value="D")
 public class DepositTransaction extends Transaction {
 	private String channel;
 

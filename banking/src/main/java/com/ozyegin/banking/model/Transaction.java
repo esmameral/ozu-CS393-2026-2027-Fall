@@ -2,6 +2,8 @@ package com.ozyegin.banking.model;
 
 import java.util.Date;
 
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +18,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="TRX_LIST")
 @Inheritance(strategy=InheritanceType.JOINED)
+//@DiscriminatorColumn(name="TRX_TYPE", length=2)
 public abstract class Transaction {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

@@ -1,10 +1,12 @@
 package com.ozyegin.banking.model;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="C_TRX_LIST")
+//@DiscriminatorValue(value="C")
 public class ChequeTransaction extends WithdrawalTransaction {
 	private String chequeNumber;
 	
