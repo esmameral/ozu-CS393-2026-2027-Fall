@@ -26,6 +26,10 @@ class TestTransactions {
 	@Autowired
 	TransactionService trxService;
 
+	@Test
+	public void testDeleteTrx() {
+		trxService.deleteTransaction(44);
+	}
 
 	@Test
 	void testTransactions() {

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,6 +37,8 @@ public class BankAccount {
 	private String owner;
 	private Date createDate =new Date();
 	private double balance;
+	
+	//@JsonIgnore
 	@OneToMany(mappedBy = "account",cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
 	private List<Transaction> transactions=new ArrayList<Transaction>();
 	

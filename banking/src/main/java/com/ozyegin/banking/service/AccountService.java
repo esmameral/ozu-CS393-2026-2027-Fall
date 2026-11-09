@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ozyegin.banking.dto.BankAccountDTO;
 import com.ozyegin.banking.model.BankAccount;
 import com.ozyegin.banking.repository.BankAccountDAO;
 import com.ozyegin.banking.repository.BankAccountRepository;
@@ -20,6 +21,10 @@ public class AccountService {
 
 	public List<BankAccount> listAccountByNameAndTrxAmount(String owner, double amount){
 		return bankAccountRepository.findByOwnerAndTransactionsAmount(owner, amount);
+	}
+	
+	public List<BankAccountDTO> getAccountDTOs(String owner) {
+		return bankAccountRepository.getBankAccountDTOByOwner(owner);
 	}
 	
 	public List<BankAccount> getAccounts(String owner) {
