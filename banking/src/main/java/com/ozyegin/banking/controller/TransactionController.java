@@ -20,7 +20,7 @@ public class TransactionController {
 	TransactionService service;
 	
 	@GetMapping("/{name}")
-	public List<TransactionSum> getAllTransactions(@PathVariable("name") String owner ){
+	public List<TransactionSum> getAllTransactions(@PathVariable("name") String owner){
 		return service.getTransactionOwnerAndBalance(owner);
 	}
 	

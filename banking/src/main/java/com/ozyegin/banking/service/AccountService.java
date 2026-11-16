@@ -31,8 +31,8 @@ public class AccountService {
 		return bankAccountRepository.findByOwner(owner);
 	}
 
-	public void addAccount(BankAccount acc) {
-		bankAccountRepository.save(acc);
+	public BankAccount addAccount(BankAccount acc) {
+		return bankAccountRepository.save(acc);
 	}
 	
 	public List<String> getAccountNames() {
